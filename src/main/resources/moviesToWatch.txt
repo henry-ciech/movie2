@@ -1,0 +1,14 @@
+[32mscore: [0m8/10[32m movie: [0mThe Shawshank Redemption
+[32mscore: [0m8/10[32m movie: [0mThe Godfather
+[32mscore: [0m8/10[32m movie: [0mThe Dark Knight
+[32mscore: [0m8/10[32m movie: [0mThe Godfather Part II
+[32mscore: [0m8/10[32m movie: [0m12 Angry Men
+[32mscore: [0m8/10[32m movie: [0mSchindler's List
+[32mscore: [0m8/10[32m movie: [0mPulp Fiction
+[32mscore: [0m8/10[32m movie: [0mThe Good, the Bad and the Ugly
+[32mscore: [0m8/10[32m movie: [0mForrest Gump
+[32mscore: [0m8/10[32m movie: [0mThe Lord of the Rings
+[32mscore: [0m8/10[32m movie: [0mInception
+[32mscore: [0m8/10[32m movie: [0mThe Matrix
+[32mscore: [0m8/10[32m movie: [0mGoodfellas
+[32mscore: [0m8/10[32m movie: [0mOne Flew Over the Cuckoo's Nest

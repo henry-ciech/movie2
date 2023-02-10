@@ -22,42 +22,10 @@ class UserOptionAsker {
         do {
             printer.print("""
                 SelectOption:
-                1. get random movie to watch
-                2. see whole movies to watch list
-                3. see whole seen movies list
-                """);
-            choice = scanner.nextLine();
-        } while (inputChecker.checkIsInputNotValid(choice, 3));
-
-        return Integer.parseInt(choice);
-    }
-
-    int optionSelectorAfterMovieToWatchList() {
-        String choice;
-        do {
-            printer.print("""
-                SelectOption:
-                1. delete
-                2. change
-                3. add
-                4. mark watched movie
-                5. set movie score
-                """);
-            choice = scanner.nextLine();
-        } while (inputChecker.checkIsInputNotValid(choice, 5));
-
-        return Integer.parseInt(choice);
-    }
-
-    int optionSelectorAfterMovieSeenList() {
-        String choice;
-        do {
-            printer.print("""
-                SelectOption:
-                1. delete
-                2. change
-                3. add
-                4. set movie score
+                1. print whole list
+                2. create
+                3. update
+                4. delete
                 """);
             choice = scanner.nextLine();
         } while (inputChecker.checkIsInputNotValid(choice, 4));

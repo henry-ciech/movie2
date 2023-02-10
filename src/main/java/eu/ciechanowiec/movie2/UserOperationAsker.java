@@ -36,25 +36,6 @@ class UserOperationAsker {
         return Integer.parseInt(movieToChange);
     }
 
-
-    int getWatchedMovieNumber(int numberOfLines) {
-        String movieWatched;
-        do {
-            printer.println("Enter movie number you watched:");
-            movieWatched = scanner.nextLine();
-        } while (inputChecker.checkIsInputNotValid(movieWatched, numberOfLines));
-        return Integer.parseInt(movieWatched);
-    }
-
-    int getMovieToSetScore(int numberOfLines) {
-        String movieToScore;
-        do {
-            printer.println("Enter movie you would like to set score:");
-            movieToScore = scanner.nextLine();
-        } while (inputChecker.checkIsInputNotValid(movieToScore, numberOfLines));
-        return Integer.parseInt(movieToScore);
-    }
-
     int getMovieScore() {
         String score;
         do {

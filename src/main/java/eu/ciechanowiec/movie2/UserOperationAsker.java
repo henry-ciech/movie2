@@ -17,8 +17,17 @@ class UserOperationAsker {
         printer = new Printer();
     }
 
+    boolean isMovieWatched() {
+        String isWatched;
+        do {
+            printer.println("Have you watched that movie?");
+            isWatched = scanner.nextLine();
+        } while (!inputChecker.isYesOrNo(isWatched));
+        return isWatched.equalsIgnoreCase("yes");
+    }
+
     String getMovieToSet() {
-        System.out.println("Enter movie you want to set:");
+        printer.println("Enter movie title you want to set:");
         return scanner.nextLine();
     }
 
@@ -30,7 +39,7 @@ class UserOperationAsker {
     int getMovieToChange(int numberOfLines) {
         String movieToChange;
         do {
-            printer.println("Enter movie number you want to change:");
+            printer.println("Enter movie ID you want to change:");
             movieToChange = scanner.nextLine();
         } while (inputChecker.checkIsInputNotValid(movieToChange, numberOfLines));
         return Integer.parseInt(movieToChange);
@@ -49,7 +58,7 @@ class UserOperationAsker {
     int getMovieToDelete(int numberOfLines) {
         String movieToDelete;
         do {
-            printer.println("Enter movie number you want to delete:");
+            printer.println("Enter movie ID you want to delete:");
             movieToDelete = scanner.nextLine();
         } while (inputChecker.checkIsInputNotValid(movieToDelete, numberOfLines));
         return Integer.parseInt(movieToDelete);

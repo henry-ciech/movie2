@@ -21,7 +21,7 @@ class UserOptionAsker {
         String choice;
         do {
             printer.print("""
-                SelectOption:
+                Select Option:
                 1. print whole list
                 2. create
                 3. update

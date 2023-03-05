@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
 class MovieRepository {
+
     private final List<Movie> listOfMovies;
     private final File moviesFile;
     private final Movie movie;
@@ -36,22 +38,41 @@ class MovieRepository {
         }
     }
 
-    void printMovie(int movieID) {
-        Movie movieToPrint = listOfMovies.get(movieID - 1);
-        printer.println(movieToPrint.getColoredLine());
-    }
-
     void update(int movieID, String movieNameToSet, int movieScoreToSet, boolean isWatchedToSet) {
-        Movie movieToUpdate = listOfMovies.get(movieID - 1);
-        movieToUpdate.setName(movieNameToSet);
-        movieToUpdate.setScore(movieScoreToSet);
-        movieToUpdate.setWatched(isWatchedToSet);
+        String movieLineToSet = movie.getFormattedLine(movieNameToSet, movieScoreToSet, isWatchedToSet);
+        addElementToACertainPlace(movieID, movieLineToSet);
         save();
     }
 
-    void delete(int movieID) {
-        listOfMovies.remove(movieID - 1);
-        save();
+    private void addElementToACertainPlace(int placeToSetElement, String lineToSet) {
+        Collection<Movie> tempListOfMovies = new ArrayList<>();
+        delete(placeToSetElement);
+        for (int i = 0; i <= listOfMovies.size(); i++) {
+            if (i == placeToSetElement - 1) {
+                Movie movieToSet = new Movie(lineToSet);
+                tempListOfMovies.add(movieToSet);
+            } else {
+                tempListOfMovies.add(listOfMovies.get(i));
+            }
+        }
+        listOfMovies.clear();
+        listOfMovies.addAll(tempListOfMovies);
+    }
+
+    @SuppressWarnings("squid:S112")
+    private void save() {
+        PrintWriter printWriter;
+        try {
+            printWriter = new PrintWriter(moviesFile);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (Movie listOfMovie : listOfMovies) {
+            String formattedLine = listOfMovie.getFormattedLine();
+            printWriter.println(formattedLine);
+        }
+        printWriter.close();
     }
 
     @SuppressWarnings("squid:S112")
@@ -69,19 +90,9 @@ class MovieRepository {
         scanner.close();
     }
 
-    @SuppressWarnings("squid:S112")
-    private void save() {
-        PrintWriter printWriter;
-        try {
-            printWriter = new PrintWriter(moviesFile);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (Movie listOfMovie : listOfMovies) {
-            printWriter.println(listOfMovie.getFormattedLine());
-        }
-        printWriter.close();
+    void delete(int movieID) {
+        listOfMovies.remove(movieID - 1);
+        save();
     }
 
     int getNumberOfMovies() {

@@ -1,12 +1,8 @@
-"Goodfellas ", 9, true
-"The Godfather", 8, true
-"The Dark Knight", 8, true
-"12 Angry Men", 8, true
-"Schindler's List", 8, true
-"The Lord of the Rings", 8, true
-"Inception", 8, true
-"The Matrix", 8, true
-"Goodfellas", 8, true
-"Nightcrawler", 8, true
-"Space odyssey", 8, true
-"Space odyssey", 10, true
+"1", 9, true
+"2", 8, true
+"3", 3, true
+"4", 8, true
+"5", 9, false
+"6", 8, true
+"7", 8, true
+"8", 8, true

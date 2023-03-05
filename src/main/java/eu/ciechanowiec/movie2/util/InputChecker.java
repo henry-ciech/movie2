@@ -30,11 +30,11 @@ public class InputChecker {
         }
     }
 
-    public boolean isContinueOrNot() {
+    public boolean doContinueOrNot() {
         String askContinue;
 
         while (true) {
-            printer.println("Do you want to continue[Y/n]?");
+            printer.println("Do you want to continue [Y/n]?");
             askContinue = scanner.nextLine();
             if (askContinue.equalsIgnoreCase("Y") || askContinue.isEmpty()) {
                 return true;
@@ -44,5 +44,9 @@ public class InputChecker {
                 printer.println("Invalid input");
             }
         }
+    }
+
+    public boolean isYesOrNo(String inputToCheck) {
+        return inputToCheck.equalsIgnoreCase("yes") || inputToCheck.equalsIgnoreCase("no");
     }
 }

@@ -5,51 +5,54 @@ import eu.ciechanowiec.movie2.util.Printer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.random.RandomGenerator;
 
 class MovieRepository {
 
     private final List<Movie> listOfMovies;
     private final File moviesFile;
-    private final Movie movie;
     private final Printer printer;
 
     MovieRepository() {
         printer = new Printer();
         moviesFile = new File("src/main/resources/movies.txt");
         listOfMovies = new ArrayList<>();
-        movie = new Movie();
         fillList();
     }
 
-    void create(String movieToCreate, int score, boolean isWatched) {
-        String lineToAdd = movie.getFormattedLine(movieToCreate, score, isWatched);
-        listOfMovies.add(new Movie(lineToAdd));
+    void create(Movie movieToAdd) {
+        listOfMovies.add(movieToAdd);
         save();
     }
 
     void printAllMovies() {
-        for (int i = 1; i <= listOfMovies.size(); i++ ) {
+        for (int i = 1; i <= listOfMovies.size(); i++) {
             Movie movieToPrint = listOfMovies.get(i - 1);
             printer.println(i + ": " + movieToPrint.getColoredLine());
         }
     }
 
-    void update(int movieID, String movieNameToSet, int movieScoreToSet, boolean isWatchedToSet) {
-        String movieLineToSet = movie.getFormattedLine(movieNameToSet, movieScoreToSet, isWatchedToSet);
-        addElementToACertainPlace(movieID, movieLineToSet);
+    void update(int movieID, Movie movieToSet) {
+        int movieNumber = getMovieNumberById(movieID);
+        addElementToACertainPlace(movieNumber, movieToSet);
         save();
     }
 
-    private void addElementToACertainPlace(int placeToSetElement, String lineToSet) {
+    private int getMovieNumberById(int movieId) {
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            Movie movie = listOfMovies.get(i);
+            if (movieId == movie.getCopyOfId()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void addElementToACertainPlace(int placeToSetElement, Movie movieToSet) {
         Collection<Movie> tempListOfMovies = new ArrayList<>();
-        delete(placeToSetElement);
-        for (int i = 0; i <= listOfMovies.size(); i++) {
-            if (i == placeToSetElement - 1) {
-                Movie movieToSet = new Movie(lineToSet);
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            if (i == placeToSetElement) {
                 tempListOfMovies.add(movieToSet);
             } else {
                 tempListOfMovies.add(listOfMovies.get(i));
@@ -90,12 +93,35 @@ class MovieRepository {
         scanner.close();
     }
 
+    @SuppressWarnings("squid:S5413")
     void delete(int movieID) {
-        listOfMovies.remove(movieID - 1);
+        for (int i = 0; i < listOfMovies.size(); i++) {
+            Movie movie = listOfMovies.get(i);
+            if (movie.getCopyOfId() == movieID) {
+                listOfMovies.remove(i); //can't find problem code
+            }
+        }
         save();
     }
 
-    int getNumberOfMovies() {
-        return listOfMovies.size();
+    @SuppressWarnings("squid:S2119")
+    int getUnusedId() {
+        RandomGenerator random = new Random();
+        int unusedId = random.nextInt(1000);
+        for (Movie movie : listOfMovies) {
+            if (unusedId == movie.getCopyOfId()) {
+                unusedId = random.nextInt(1000);
+            }
+        }
+        return unusedId;
+    }
+
+    boolean isIdUsed(int idToCheck) {
+        for (Movie movie : listOfMovies) {
+            if (movie.getCopyOfId() == idToCheck) {
+                return false;
+            }
+        }
+        return true;
     }
 }

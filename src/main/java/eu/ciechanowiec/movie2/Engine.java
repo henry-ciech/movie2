@@ -7,51 +7,57 @@ class Engine {
 
     private final MovieRepository movieRepository;
     private final UserOperationAsker userOperationAsker;
-    private final UserOptionAsker userOptionAsker;
     private final InputChecker inputChecker;
     private final Printer printer;
+    private final Movie movie;
 
     Engine() {
         printer = new Printer();
         movieRepository = new MovieRepository();
         inputChecker = new InputChecker();
-        userOptionAsker = new UserOptionAsker();
         userOperationAsker = new UserOperationAsker();
+        movie = new Movie();
     }
 
     void select() {
         do {
-            int choice = userOptionAsker.optionSelector();
-            Choice choice1 = Choice.byNumber(choice);
-            switch (choice1) {
-                case CREATE -> movieRepository.printAllMovies();
-                case PRINT -> printMovies();
+            int choiceAsInt = userOperationAsker.askAboutOption();
+            Choice choice = Choice.byNumber(choiceAsInt);
+            switch (choice) {
+                case CREATE -> addMovie();
+                case PRINT -> movieRepository.printAllMovies();
                 case UPDATE -> updateMovies();
                 case DELETE -> deleteMovies();
-                case UNDEFINED -> printer.println("something went wrong");
+                case UNDEFINED -> printer.println("Something went wrong");
             }
-        } while (inputChecker.doContinueOrNot());
+        } while (inputChecker.isContinueOrNot());
     }
 
-    void printMovies() {
+
+
+    private void addMovie() {
         String movieName = userOperationAsker.getMovieToAdd();
         int movieScore = userOperationAsker.getMovieScore();
         boolean isMovieWatched = userOperationAsker.isMovieWatched();
-        movieRepository.create(movieName, movieScore, isMovieWatched);
+        int id = movieRepository.getUnusedId();
+        String movieToAdd = movie.getFormattedLine(movieName, movieScore, isMovieWatched, id);
+        Movie movieToCreate = new Movie(movieToAdd);
+        movieRepository.create(movieToCreate);
     }
 
-    void updateMovies() {
-        int numberOfMovies = movieRepository.getNumberOfMovies();
-        int movieID = userOperationAsker.getMovieToChange(numberOfMovies);
-        String movieToSet = userOperationAsker.getMovieToSet();
+    private void updateMovies() {
+        int movieID = userOperationAsker.getMovieToChange();
+        String movieTitleToSet = userOperationAsker.getMovieTitleToSet();
         int scoreToSet = userOperationAsker.getMovieScore();
         boolean isMovieWatched = userOperationAsker.isMovieWatched();
-        movieRepository.update(movieID, movieToSet, scoreToSet, isMovieWatched);
+        int id = movieRepository.getUnusedId();
+        String movieToSetString = movie.getFormattedLine(movieTitleToSet, scoreToSet, isMovieWatched, id);
+        Movie movieToSet = new Movie(movieToSetString);
+        movieRepository.update(movieID, movieToSet);
     }
 
-    void deleteMovies() {
-        int numberOfMovies = movieRepository.getNumberOfMovies();
-        int movieId = userOperationAsker.getMovieToDelete(numberOfMovies);
+    private void deleteMovies() {
+        int movieId = userOperationAsker.getMovieToDelete();
         movieRepository.delete(movieId);
     }
 }

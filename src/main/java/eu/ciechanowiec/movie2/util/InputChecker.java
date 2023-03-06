@@ -30,7 +30,7 @@ public class InputChecker {
         }
     }
 
-    public boolean doContinueOrNot() {
+    public boolean isContinueOrNot() {
         String askContinue;
 
         while (true) {

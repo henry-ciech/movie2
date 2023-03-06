@@ -1,8 +1,8 @@
-"1", 9, true
-"2", 8, true
-"3", 3, true
-"4", 8, true
-"5", 9, false
-"6", 8, true
-"7", 8, true
-"8", 8, true
+"1", 1, false, 435
+"3", 3, false, 686
+"4", 4, false, 536
+"5", 5, false, 385
+"6", 6, false, 390
+"7", 7, false, 235
+"777", 4, true, 583
+"4", 4, true, 212
